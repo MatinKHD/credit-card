@@ -1,0 +1,85 @@
+<section class="w-full flex flex-col items-center gap-6 px-8 py-8">
+    <!-- Tabs for Rial and TTR -->
+    <div class="w-full max-w-md flex justify-center gap-4 border-b-2 border-gray-300 pb-4">
+      <button
+        class="px-4 py-2 text-sm font-semibold rounded focus:outline-none"
+        [ngClass]="{ 'bg-blue-600 text-white': activeTab === 'rial', 'bg-gray-200 text-gray-700': activeTab !== 'rial' }"
+        (click)="setActiveTab('rial')"
+      >
+        ریال
+      </button>
+      <button
+        class="px-4 py-2 text-sm font-semibold rounded focus:outline-none"
+        [ngClass]="{ 'bg-blue-600 text-white': activeTab === 'ttr', 'bg-gray-200 text-gray-700': activeTab !== 'ttr' }"
+        (click)="setActiveTab('ttr')"
+      >
+        TTR
+      </button>
+    </div>
+  
+    <!-- Rial Tab Content -->
+    <div *ngIf="activeTab === 'rial'" class="w-full max-w-md bg-white shadow-md rounded-lg p-6">
+      <form [formGroup]="rialForm" (ngSubmit)="onSubmitRial()">
+        <div class="mx-auto max-w-[300px] border border-blue-300 bg-blue-600 w-full flex flex-wrap justify-center items-center shadow-sm rounded-md py-8 px-4 mb-4">
+            <p class="w-full text-white text-center font-bold mb-4">6219-2211-3331-2312</p>
+            <p class="text-white font-semibold">محمد محمد زاده</p>
+        </div>
+        <div class="flex flex-col gap-4">
+          <label for="transactionReceipt" class="text-sm font-semibold text-center">رسید تراکنش</label>
+          <input
+            id="transactionReceipt"
+            type="file"
+            formControlName="transactionReceipt"
+            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <small *ngIf="rialForm.get('transactionReceipt')?.invalid && rialForm.get('transactionReceipt')?.touched" class="text-red-500">
+            لطفاً رسید تراکنش را وارد کنید.
+          </small>
+
+          <p class="text-center text-sm">حداقل مبلغ <span class="font-semibold text-blue-700">{{minimumRialAmount | number}}</span> ریال به کارت بالا واریز کنید</p>
+          <label for="" class="text-gray-800 text-center">آپلود اسکرین شات رسید</label>
+          <button
+            type="submit"
+            [disabled]="rialForm.invalid"
+            class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:bg-gray-400"
+          >
+            ارسال
+          </button>
+        </div>
+      </form>
+    </div>
+  
+    <!-- TTR Tab Content -->
+    <div *ngIf="activeTab === 'ttr'" class="w-full max-w-md bg-white shadow-md rounded-lg p-6">
+      <form [formGroup]="ttrForm" (ngSubmit)="onSubmitTtr()">
+        <div class="flex flex-col gap-4">
+            <div class="flex flex-col items-center gap-2">
+                <p class="text-sm font-semibold text-center">آدرس TTR</p>
+                <div id="qrcode" class="w-32 h-32"></div>
+                <p class="text-sm text-gray-600 text-center break-all">{{ ttrAddress }}</p>
+            </div>
+        
+            <label for="transactionHash" class="text-sm font-semibold">هش تراکنش</label>
+            <input
+                id="transactionHash"
+                type="text"
+                formControlName="transactionHash"
+                class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="هش تراکنش را وارد کنید"
+            />
+            <small *ngIf="ttrForm.get('transactionHash')?.invalid && ttrForm.get('transactionHash')?.touched" class="text-red-500">
+                لطفاً هش تراکنش را وارد کنید.
+            </small>
+
+            <p class="text-center text-sm">حداقل مبلغ <span class="font-semibold text-blue-700">{{minimumTtrAmount | number}}</span> تتر به ولت بالا واریز کنید</p>
+            <button
+                type="submit"
+                [disabled]="ttrForm.invalid"
+                class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:bg-gray-400"
+            >
+                ثبت
+            </button>
+        </div>
+      </form>
+    </div>
+  </section>

@@ -1,0 +1,37 @@
+<section class="w-full h-screen flex justify-center items-center ">
+  <div class="bg-gray-300 rounded-3xl p-8 flex flex-wrap items-center justify-center w-full md:w-8/12 lg:w-1/2 xl:w-1/2 shadow-xl">
+    @if(loginStatus === loginStatusEnum.phoneNumber ) {
+      <p class="w-full text-2xl font-semibold mb-4">ورود به حساب کاربری</p>
+      <p class="w-full text-gray-600 mb-4">لطفا شماره موبایل خود را وارد کنید.</p>
+      <div class="w-full flex flex-wrap" [ngClass]="[phoneNumberControl.invalid && phoneNumberControl.touched ? 'mb-4': 'mb-8']">
+        <input 
+          type="text" 
+          [formControl]="phoneNumberControl"
+          (input)="replaceNumber()" 
+          class="w-full bg-white border border-gray-300 placeholder:text-gray-400 rounded-xl py-4 px-4 mb-4 focus:outline-none focus:border-blue-700 focus:ring-1 focus:ring-blue-700"
+          placeholder="شماره موبایل"
+          [ngClass]="{'border-red-500': phoneNumberControl.invalid && phoneNumberControl.touched}"
+          maxlength="11"
+          minLength="11"
+        />
+        <p class="w-full text-sm text-red-500" *ngIf="phoneNumberControl.invalid && phoneNumberControl.touched">شماره موبایل معتبر نیست</p>
+      </div>
+      
+      <p class="mb-8 text-sm font-semibold text-gray-800">با ثبت نام در ایران ویزا  <span class="text-blue-800 font-semibold text-sm ">قوانین و مقررات</span> ما را پذیرفته اید</p>
+    }
+    @if(loginStatus === loginStatusEnum.otp) {
+      <p class="w-full text-xl font-semibold mb-4">دریافت کد تایید</p>
+      <p class="w-full text-gray-600 mb-4">کد تایید ۴ رقمی به شماره موبایل شما ارسال شد.</p>
+      <p class="w-9/12 text-lg text-gray-500 bg-white mb-16 text-center px-6 py-3 rounded-2xl">{{phoneNumberControlValue}}</p>
+      @if(isInBrowser) {
+        <code-input [isCodeHidden]="false" class="w-8/12 mb-16" [codeLength]="4"  [initialFocusField]="0"
+        [isCharsCode]="true" (codeChanged)=" verifyCode = $event" (codeCompleted)="confirmVerifyCode()" style="direction: ltr !important;">
+        </code-input>
+      }
+      <p class="w-full text-sm text-center text-blue-500 mb-8">ارسال مجدد کد تایید</p>
+
+    }
+    <button type="button" class="w-full bg-blue-700 font-bold text-white py-3 rounded-xl mx-4" (click)="handleLogin(loginStatus)">{{loginStatus === loginStatusEnum.phoneNumber ? 'دریافت کد' : 'ثبت کد'}}</button>
+  </div>
+</section>
+

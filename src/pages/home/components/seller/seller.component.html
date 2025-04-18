@@ -1,0 +1,34 @@
+<section class="w-full flex flex-wrap justify-start content-start">
+    <header class="w-full flex gap-1.5 px-8 py-8">
+        <p class="text-lg font-semibold">نام فروشنده:</p>
+        <p class="text-xl font-bold">متین خدامرادی</p>
+    </header>
+    <main class="w-full flex flex-wrap content-start">
+        <section class="w-full mb-8">
+            <!-- <p class="text-lg font-semibold">عملیات</p> -->
+            <div class="w-full flex justify-center gap-2 mt-4">
+                <button 
+                    class="w-5/12  text-white py-2 px-4 hover:bg-blue-700 cursor-pointer rounded" 
+                    [ngClass]="[operationStatus === operationStatusEnum.Issuance ? 'bg-blue-600' :'bg-blue-400']"
+                    (click)="operationStatus = operationStatusEnum.Issuance"
+                >
+                    صدور
+                </button>
+                <button 
+                    class="w-5/12  text-white py-2 px-4 hover:bg-blue-700 cursor-pointer rounded" 
+                    [ngClass]="[operationStatus === operationStatusEnum.Charging ? 'bg-blue-600' :'bg-blue-400']"
+                    (click)="operationStatus = operationStatusEnum.Charging"
+                >
+                    شارژ
+                </button>
+            </div>    
+        </section>
+        <section class="w-full">
+            @if(operationStatus === operationStatusEnum.Issuance) {
+                <app-issuance></app-issuance>
+            } @else if (operationStatus === operationStatusEnum.Charging) {
+                <app-charging></app-charging>
+            }
+        </section>
+    </main>
+</section>

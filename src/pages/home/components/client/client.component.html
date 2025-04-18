@@ -1,0 +1,56 @@
+<section class="w-full h-flex flex-wrap justify-start content-start">
+    <section class="w-full flex flex-wrap justify-center items-center mb-4">
+        <p class="w-full text-lg font-semibold text-center mb-4">وضعیت کارت</p>
+        <div class="w-full flex flex-wrap justify-center items-center">
+            <button class="px-6 py-4 text-xs text-white hover:bg-blue-800 rounded-xl ml-2" [ngClass]="[cardStatus === cardStatusEnum.Issued ? 'bg-gray-500' : 'bg-blue-700']" (click)="handleSmapleRouting('3')">صادر شده</button>
+            <button class="px-6 py-4 text-xs text-white hover:bg-blue-800 rounded-xl ml-2" [ngClass]="[cardStatus === cardStatusEnum.Issued ? 'bg-gray-500' : 'bg-blue-700']" (click)="handleSmapleRouting('1')">در حال صدور</button>
+            <button class="px-6 py-4 text-xs text-white hover:bg-blue-800 rounded-xl" [ngClass]="[cardStatus === cardStatusEnum.Issued ? 'bg-gray-500' : 'bg-blue-700']" (click)="handleSmapleRouting('2')">صادر نشده</button>
+        </div>
+    </section>
+    @if(this.id == '1') {
+        <section class="w-full h-full flex flex-wrap justify-center items-center">
+            <p class="w-full text-lg font-semibold text-center mb-4">کارت شما در حال صدور است.</p>
+            <p class="w-full text-sm text-gray-600 text-center">به محض آماده شدن کارت برای شما پیامک ارسال میشود</p>
+        </section>
+        
+    } @else if (this.id == '2') {
+        <section class="w-full h-full flex flex-wrap justify-center items-center">
+            <p class="w-full text-lg font-semibold text-center mb-4">کارت شما صادر نشده.</p>
+            <p class="w-full text-sm border-b-2 border-b-blue-400 text-blue-600 px-8 py-4 text-center font-semibold">ثبت کارت</p>
+
+            <app-charging class="w-full"></app-charging>
+        </section>
+    } @else if(this.id === '3') {
+        <section class="w-full h-full flex flex-wrap justify-center items-center">
+            <p class="w-full text-lg font-semibold text-center mb-4">کارت شما صادر شده.</p>
+            <section class="w-full flex flex-wrap justify-center items-center">
+                <div class="max-w-[400px] border border-blue-300 bg-blue-900 w-full md:w-1/2 lg:w-1/2 xl:w-1/2 2xl:w-1/2 flex flex-wrap items-center shadow-sm rounded-md py-8 px-4 mb-4">
+                    <p class="w-full text-xl font-semibold text-white text-end mb-8">VISA</p>
+                    <p class="w-full text-2xl text-white text-center font-bold mb-4" style="direction: ltr; word-spacing: 15px;">4000 1234 5678 9010</p>
+                    <p class="w-1/2 text-white font-semibold" style=" word-spacing: 15px;">CVV 1234</p>
+                    <p class="w-1/2 text-white font-semibold text-end" style=" letter-spacing: 3px;">12/28</p>
+                </div>
+
+                 <!-- Buttons for Apple Pay and Google Pay -->
+                 <div class="w-full flex justify-center gap-4 mt-4 mb-16">
+                    <button
+                        class="bg-gray-500 text-white py-2 px-6 rounded hover:bg-gray-800 flex items-center gap-2"
+                        (click)="connectToApplePay()"
+                    >
+                        <img src="../../../../assets/logo/apple-pay-logo.svg" alt="Apple Pay" class="h-6" />
+                        <span>Connect to Apple Pay</span>
+                    </button>
+                    <button
+                        class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700 flex items-center gap-2"
+                        (click)="connectToGooglePay()"
+                    >
+                        <img src="../../../../assets/logo/google-play-logo.svg" alt="Google Pay" class="h-6" />
+                        <span>Connect to Google Pay</span>
+                    </button>
+                </div>
+                <p class="w-full max-w-[400px] text-center text-xl border-b-2 border-b-blue-500 font-semibold text-blue-600 mb-4 pb-4">شارژ</p>
+                <app-charging class="w-full"></app-charging>
+            </section>
+        </section>
+    }
+</section>

@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+* {
+    direction: rtl;
+}
+
+input {
+    background-color: white !important;
+}

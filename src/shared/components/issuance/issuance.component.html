@@ -1,0 +1,42 @@
+<section class="w-full flex flex-col items-center gap-6 px-8 py-8">
+    <form [formGroup]="issuanceForm" (ngSubmit)="onSubmit()" class="w-full max-w-md flex flex-col gap-4">
+      <!-- Phone Number Input -->
+      <div class="flex flex-col gap-2">
+        <label for="phoneNumber" class="text-lg font-semibold">شماره تلفن</label>
+        <input
+          id="phoneNumber"
+          type="text"
+          formControlName="phoneNumber"
+          class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="09xxxxxxxxx"
+        />
+        <small *ngIf="phoneNumber?.invalid && phoneNumber?.touched" class="text-red-500">
+          شماره تلفن معتبر نیست.
+        </small>
+      </div>
+  
+      <!-- Email Input -->
+      <div class="flex flex-col gap-2">
+        <label for="email" class="text-lg font-semibold">ایمیل</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="example@email.com"
+        />
+        <small *ngIf="email?.invalid && email?.touched" class="text-red-500">
+          ایمیل معتبر نیست.
+        </small>
+      </div>
+  
+      <!-- Issuance Button -->
+      <button
+        type="submit"
+        [disabled]="issuanceForm.invalid"
+        class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:bg-gray-400"
+      >
+        صدور
+      </button>
+    </form>
+  </section>
